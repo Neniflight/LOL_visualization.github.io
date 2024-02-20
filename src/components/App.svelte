@@ -23,12 +23,7 @@
 </script>
 
 <main>
-    <h1>Hello {name}!</h1>
-    <p>Visit <a href="https://svelte.dev/tutorial"> Svelte tutorial</a> to learn how to build Svelte apps.</p>
-    <input placeholder="What do you need to do?" value="" />
-
     <section class="graph">
-        <h2 style="margin-top: 15px">todo pie</h2>
         <div>
             <Graph {player_data} {team_data}/>
           </div>

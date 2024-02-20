@@ -1,0 +1,35 @@
+.merriweather-sans-league {
+  font-family: "Merriweather Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    background-color: #091428;
+}
+
+h1 {
+    font-family: "Merriweather Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #F0E6D2;
+}
+
+.worldmap {
+    width: 90%!important;
+    height: auto;
+}
+
+.worldmap path {
+    transition: fill 0.2s ease;
+}
+
+.highlighted {
+    fill: #7cbfec; /* Change to the desired highlight color */
+    transition: fill 0.3s ease; /* Add a smooth transition effect */
+  }

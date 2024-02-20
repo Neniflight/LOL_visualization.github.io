@@ -32,7 +32,7 @@
 
         // Check if team_data is populated
        // Introduce a short delay (e.g., 100 milliseconds)
-        await new Promise(resolve => setTimeout(resolve, 200));
+        await new Promise(resolve => setTimeout(resolve, 500));
         console.log('what')
         // Call your function to group data by region, patch, and champion
         console.log(player_data)
@@ -286,8 +286,6 @@
                     .attr("width", 20) // Adjust image size as needed
                     .attr("height", 20); // Adjust image size as needed
             });
-
-
 
             console.log(sortedBannedChampions)
             
