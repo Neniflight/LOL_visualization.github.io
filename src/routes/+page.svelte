@@ -2,6 +2,8 @@
   import { json, select } from "d3";
   import { geoPath, geoNaturalEarth1 } from "d3";
   import { onMount } from 'svelte';
+  import { base } from '$app/paths';
+
 
   let dataset = null;
   let path = null;
@@ -60,7 +62,8 @@
 <div class="container">
   <h1>Are Different Champions Popular in Different Regions?</h1>
   <h2>Competitive League of Legends Visualization</h2>
-  <a href="/writeup">
+  
+  <a href="{base}/writeup">
     <button class="write-up">Write-Up</button>
   </a>
   {#if dataset}

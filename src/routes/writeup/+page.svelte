@@ -1,6 +1,9 @@
+<script>
+      import { base } from '$app/paths';
+</script>
 <body>
     <div class="button-container">
-        <a href="/">
+        <a href="{base}/">
             <button>Back to Region</button>
         </a>
     </div>
