@@ -86,7 +86,7 @@
         // Create SVG
         svg = d3.select('#graph')
             .append('svg')
-            .attr('width', 500)
+            .attr('width', 600)
             .attr('height', 200)  // Adjust dimensions as needed
 
         // Create y-axis
@@ -187,7 +187,7 @@
                 svg.append("image")
                     .attr("class", "champion-image")
                     .attr("xlink:href", `${champion[0]}Square.png`)
-                    .attr("x", 30) // Adjust x-position to display images on the left side of the graph
+                    .attr("x", 20) // Adjust x-position to display images on the left side of the graph
                     .attr("y", yScale(champion[0])) // Adjust y-position to center images with the corresponding y-axis label
                     .attr("width", 20) // Adjust image size as needed
                     .attr("height", 20); // Adjust image size as needed
@@ -234,7 +234,7 @@
                 svg2.append("image")
                     .attr("class", "champion-image")
                     .attr("xlink:href", `${champion[0]}Square.png`)
-                    .attr("x", 30) // Adjust x-position to display images on the left side of the graph
+                    .attr("x", 20) // Adjust x-position to display images on the left side of the graph
                     .attr("y", yScale2(champion[0])) // Adjust y-position to center images with the corresponding y-axis label
                     .attr("width", 20) // Adjust image size as needed
                     .attr("height", 20); // Adjust image size as needed
@@ -301,7 +301,7 @@
                 svgBanned.append("image")
                     .attr("class", "champion-image")
                     .attr("xlink:href", `${champion[0]}Square.png`)
-                    .attr("x", 30) // Adjust x-position to display images on the left side of the graph
+                    .attr("x", 20) // Adjust x-position to display images on the left side of the graph
                     .attr("y", yScaleBanned(champion[0])) // Adjust y-position to center images with the corresponding y-axis label
                     .attr("width", 20) // Adjust image size as needed
                     .attr("height", 20); // Adjust image size as needed
@@ -373,7 +373,7 @@
         // Create SVG
         svg2 = d3.select('#worst-graph')
             .append('svg')
-            .attr('width', 500)
+            .attr('width', 600)
             .attr('height', 200); // Adjust dimensions as needed
 
         // Create y-axis
@@ -473,7 +473,7 @@
         // Take the top 5 most banned champions
         sortedBannedChampions = bannedChampionsArray.slice(0, 5);
             xScaleBanned = d3.scaleLinear()
-                .domain([0, d3.max(bannedChampionsArray, d => d[1])])
+                .domain([0, 80])
                 .range([0, 300]);
 
         yScaleBanned = d3.scaleBand()
@@ -483,7 +483,7 @@
 
         svgBanned = d3.select('#banned-champions-graph')
             .append('svg')
-            .attr('width', 500)
+            .attr('width', 600)
             .attr('height', 200);
 
         svgBanned.append("g")
