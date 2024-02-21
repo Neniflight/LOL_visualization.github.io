@@ -3,6 +3,8 @@
     import { onMount } from 'svelte';
     import { scaleLinear, scaleBand } from 'd3-scale';
     import Scatter from '../components/Scatter.svelte';
+    import { base } from '$app/paths';
+
 
 
     export let player_data = []; // Define player_data as a prop
@@ -547,7 +549,7 @@
 
 <div class="container">
     <div class="button-container">
-        <a href="/">
+        <a href="{base}/">
             <button>Back to Region</button>
         </a>
     </div>
