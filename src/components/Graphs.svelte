@@ -494,7 +494,7 @@
 
         svgBanned.append("g")
             .attr("transform", "translate(100,120)")
-            .call(d3.axisBottom(xScaleBanned).ticks(5))
+            .call(d3.axisBottom(xScaleBanned).ticks(10))
             .selectAll("text")
             .attr("fill", "#F0E6D2");
 

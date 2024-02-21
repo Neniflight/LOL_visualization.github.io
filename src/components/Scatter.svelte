@@ -200,10 +200,9 @@
             .text(`Kill Participation: ${roundedYValue}`);
 
         // Position tooltip relative to the mouse cursor
-        console.log(d)
-        const mouseX = d.clientX;
-        const mouseY = d.clientY;
-        tooltip.attr('transform', `translate(${mouseX-1200},${mouseY-300})`);
+        const mouseX = d.screenX;
+        const mouseY = d.screenY;
+        tooltip.attr('transform', `translate(${xScale(roundedXValue)},${yScale(roundedYValue)})`);
     }
 
     function handleMouseOut() {

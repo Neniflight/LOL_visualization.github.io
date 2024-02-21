@@ -2,7 +2,6 @@
   import { json, select } from "d3";
   import { geoPath, geoNaturalEarth1 } from "d3";
   import { onMount } from 'svelte';
-  import App from '../components/App.svelte';
 
   let dataset = null;
   let path = null;
@@ -13,7 +12,6 @@
     { name: "France", region:"Europe", initials:"LEC", coordinates: [5, 53] },
     { name: "China", region:"China", initials:"LPL", coordinates: [107, 30] },
     { name: "South Korea", region:"South Korea", initials:"LCK", coordinates: [129, 40] },
-    // Add more pins as needed
   ];
 
   onMount(() => {
@@ -60,7 +58,8 @@
 </style>
 
 <div class="container">
-  <h1>League of Legends Visualizations by Region</h1>
+  <h1>Are Different Champions Popular in Different Regions?</h1>
+  <h2>Competitive League of Legends Visualization</h2>
   <a href="/write-up">
     <button class="write-up">Write-Up</button>
   </a>
