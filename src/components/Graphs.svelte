@@ -2,6 +2,8 @@
 	import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import { scaleLinear, scaleBand } from 'd3-scale';
+    import Scatter from '../components/Scatter.svelte';
+
 
     export let player_data = []; // Define player_data as a prop
     export let team_data = []; // Define team_data as a prop
@@ -28,6 +30,9 @@
     let yScaleBanned;
     let sortedBannedChampions;
 
+    let svgElement;
+
+    
     onMount(async () => {
 
         // Check if team_data is populated
@@ -57,9 +62,10 @@
     }
 
     function createGraph(data) {
+        console.log('this is data')
         console.log(data)
         let flattenedData = Array.from(data, ([champion, results]) => [champion, results.length >= 5 ? d3.mean(results, d => d.result) : 0]);
-
+        console.log(flattenedData)
         // Sort champions by win rate
         sortedChampions = flattenedData.sort((a, b) => b[1] - a[1]).slice(0, 5);
                 // Create scales
@@ -90,6 +96,7 @@
             .selectAll("text")
             .attr("fill", "#F0E6D2")
 
+
         // Create x-axis
         svg.append("g")
             .attr("transform", "translate(100,120)") // Adjust y-position for the x-axis
@@ -97,6 +104,13 @@
             .selectAll("text")
             .attr("fill", "#F0E6D2"); // Display ticks in percentage form
 
+        svg.selectAll('.domain')
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+
+        // Add styling to axis lines
+        svg.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+            
         // Add champion images
         svg.selectAll('.champion-image')
             .data(sortedChampions)
@@ -136,9 +150,6 @@
             .attr('dx', 5)
             .attr('fill', '#F0E6D2'); // Adjust color as needed
 
-
-            
-       
         console.log('graph created')
         graphInitialized = true
     }
@@ -184,7 +195,9 @@
 
             // Update y-axis
             svg.select("g")
-                .call(d3.axisLeft(yScale));
+                .call(d3.axisLeft(yScale))
+                .selectAll('text')
+                .attr("fill", "#F0E6D2");
 
             // Redraw graph when patch or region changes
             svg.selectAll('rect')
@@ -209,8 +222,9 @@
 
             // Update y-axis
             svg2.select("g")
-                .call(d3.axisLeft(yScale2));
-
+                .call(d3.axisLeft(yScale2))
+                .selectAll('text')
+                .attr("fill", "#F0E6D2");
             
             // Remove existing images
             svg2.selectAll(".champion-image").remove();
@@ -272,7 +286,9 @@
 
             // Update y-axis
             svgBanned.select("g")
-                .call(d3.axisLeft(yScaleBanned));
+                .call(d3.axisLeft(yScaleBanned))
+                .selectAll('text')
+                .attr("fill", "#F0E6D2");
             // Remove existing images
             svgBanned.selectAll(".champion-image").remove();
             // Remove existing bars and labels
@@ -310,6 +326,17 @@
                     if (width < 60) return 100 + width + 10; // Adjust position for narrow bars
                     else return 100 + width; // Align text to the end of the bars
                 });
+
+
+                        // Add styling to axis lines
+        svg.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+                    // Add styling to axis lines
+        svg2.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+                    // Add styling to axis lines
+        svgBanned.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
         }
 
     function updateAvailablePatches() {
@@ -366,6 +393,10 @@
             .attr("fill", "#F0E6D2");
 
 
+        // Add styling to axis lines
+        svg2.selectAll(".domain")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+
 
         // Add champion images
         svg2.selectAll('.champion-image')
@@ -407,6 +438,11 @@
             .attr('y', d => yScale2(d[0]) + yScale2.bandwidth() / 2)
             .attr('dy', '0.35em')
             .attr('fill', '#F0E6D2'); // Adjust color as needed
+        
+        svg2.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+                    // Add styling to axis lines
+        
     }
     function createBannedChampionsGraph(data) {
         // Filter data for the selected region
@@ -483,6 +519,10 @@
             .attr('dy', '0.35em')
             .attr('fill', '#F0E6D2');
 
+        // Add styling to axis lines
+        svgBanned.selectAll(".domain")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+
         console.log(sortedBannedChampions)
         svgBanned.selectAll('.champion-image')
             .data(sortedBannedChampions)
@@ -494,10 +534,17 @@
             .attr('y', d => yScaleBanned(d[0]))
             .attr('width', 20)
             .attr('height', 20);
+
+            svgBanned.selectAll(".tick line")
+            .attr("stroke", "#F0E6D2"); // Change color of axis lines
+                    // Add styling to axis lines
     }
 
 
 </script>
+
+
+
 <div class="container">
     <div class="button-container">
         <a href="/">
@@ -509,19 +556,28 @@
             <option value={patch}>{patch.toFixed(2)}</option>
         {/each}
     </select>
-    <h1>Best Win Rate Champions Per Region Per Patch</h1>
-    <div id="graph"></div>
-    <h1>Worst Win Rate Champions Per Region Per Patch</h1>
-    <div id="worst-graph"></div>
-    <h1>Most Banned Champions Per Region Per Patch</h1>
-    <div id="banned-champions-graph"></div>
-<!-- Selector to choose patch -->
+    <div class="left-column">
+        <h1>Best Win Rate Champions Per Region Per Patch</h1>
+        <div id="graph"></div>
+        <h1>Worst Win Rate Champions Per Region Per Patch</h1>
+        <div id="worst-graph"></div>
+        <h1>Most Banned Champions Per Region Per Patch</h1>
+        <div id="banned-champions-graph"></div>
+    </div>
+    <div class="right-column">
+        <h1>Player Scatter Plot</h1>
+        <svg bind:this={svgElement}></svg> <!-- Bind the SVG element -->
+        <Scatter {player_data} selectedRegion={selectedRegion} selectedPatch={selectedPatch}/>
+    </div>
 </div>
+
 
 <style>
     .container {
         background-color: linear-gradient(#091428, #0A1428);
-        display: flex;
+        display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px; /* Adjust spacing between columns */
         flex-direction: column;
         align-items: center;
         padding-bottom: 3rem;
@@ -555,6 +611,17 @@
     .domain {
         color: #F0E6D2;
     }
+
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+}
 </style>
 
 <!-- commented out to prevent people from choosing region -->

@@ -1,5 +1,6 @@
 <script>
     import Graph from '../components/Graphs.svelte';
+    import Scatter from '../components/Scatter.svelte';
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
     
@@ -25,6 +26,7 @@
     <section class="graph">
         <div>
             <Graph {player_data} {team_data}/>
+            <Scatter {player_data}/>
           </div>
     </section>
 </main>
