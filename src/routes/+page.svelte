@@ -60,7 +60,7 @@
 <div class="container">
   <h1>Are Different Champions Popular in Different Regions?</h1>
   <h2>Competitive League of Legends Visualization</h2>
-  <a href="/write-up">
+  <a href="/writeup">
     <button class="write-up">Write-Up</button>
   </a>
   {#if dataset}
