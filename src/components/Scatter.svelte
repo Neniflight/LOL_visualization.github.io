@@ -29,8 +29,8 @@
         console.log(groupedData)
         svgScatter = d3.select('#scatter-plot')
             .append('svg')
-            .attr('width', 600)
-            .attr('height', 400);
+            .attr('width', 800)
+            .attr('height', 550);
 
         tooltip = d3.select('body')
             .append('div')
@@ -85,31 +85,36 @@
     };
     const xAccessor = xAccessorFunc(position);
     const yAccessor = calculateKillParticipation(data);
-    console.log(xAccessor)
+    
+    const xMin = d3.min(xAccessor, d => d[1]);
+    const xMax = d3.max(xAccessor, d => d[1]);
+    const yMin = d3.min(yAccessor, d => d[1]);
+    const yMax = d3.max(yAccessor, d => d[1]);
 
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const width = 600 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const width = 800 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
 
     const svg = svgScatter.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xScale = d3.scaleLinear()
-        .domain([0, d3.max(xAccessor, d => d[1])]).nice()
+        .domain([xMin - (xMax - xMin) * 0.3, xMax]).nice()
         .range([0, width]);
 
     const yScale = d3.scaleLinear()
-        .domain([0, d3.max(yAccessor, d => d[1])]).nice()
+        .domain([yMin - (yMax - yMin) * 0.1, yMax]).nice()
         .range([height, 0]);
 
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
 
     svg.append('g')
-        .attr('transform', `translate(0,${height})`)
+        .attr('transform', `translate(10,${height})`)
         .call(xAxis);
 
     svg.append('g')
+        .attr('transform', `translate(10,0)`)
         .call(yAxis);
 
     let txt = '';
@@ -122,7 +127,7 @@
 
     // Add labels
     svg.append('text')
-        .attr('transform', `translate(${width / 2},${height + margin.top + 10})`)
+        .attr('transform', `translate(${width / 2},${height + margin.top + 20})`)
         .style('text-anchor', 'middle')
         .text(txt)
         .selectAll("text")
@@ -159,7 +164,7 @@
         const yIndex = yAccessor.findIndex(([playername]) => playername === xPlayername);
         const [yPlayername, yValue] = yAccessor[yIndex];
 
-        const tooltipWidth = 180; // Adjust as needed
+        const tooltipWidth = 200; // Adjust as needed
         const tooltipHeight = 70; // Adjust as needed
         const padding = 10; // Adjust as needed
         const roundedXValue = parseFloat(xValue).toFixed(2); // Round to 2 decimal points
@@ -184,17 +189,20 @@
         tooltip.append('text')
             .attr('x', padding)
             .attr('y', padding + 35)
+            .style('font-size', '14px')
             .text(`${txt}: ${roundedXValue}`);
+            
 
         tooltip.append('text')
             .attr('x', padding)
             .attr('y', padding + 55)
+            .style('font-size', '14px')
             .text(`Kill Participation: ${roundedYValue}`);
 
         // Position tooltip relative to the mouse cursor
         const mouseX = d.screenX;
         const mouseY = d.screenY;
-        tooltip.attr('transform', `translate(${mouseX/2 - tooltipWidth-100},${mouseY/2 - tooltipHeight - padding-100})`);
+        tooltip.attr('transform', `translate(${mouseX-1250},${mouseY-410})`);
     }
 
     function handleMouseOut() {
@@ -210,14 +218,15 @@
     }
 
 </script>
-
+<div class="scat-container">
+    <div id="scatter-plot"></div>
+    <select on:change="{e => updateScatter(e.target.value)}">
+        {#each positions as position}
+            <option value="{position}">{position}</option>
+        {/each}
+    </select>
+</div>
 <div id="scatter-plot"></div>
-
-<select on:change="{e => updateScatter(e.target.value)}">
-    {#each positions as position}
-        <option value="{position}">{position}</option>
-    {/each}
-</select>
 
 
 <style>
@@ -226,5 +235,15 @@
         background-color: white;
         border: 1px solid #ddd;
         padding: 5px;
+    }
+
+    select {
+        width: 10%;
+    }
+
+    .scat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

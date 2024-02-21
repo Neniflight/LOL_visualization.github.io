@@ -61,6 +61,9 @@
 
 <div class="container">
   <h1>League of Legends Visualizations by Region</h1>
+  <a href="/write-up">
+    <button class="write-up">Write-Up</button>
+  </a>
   {#if dataset}
     <!-- World map drawn by paths -->
     <svg class="worldmap" viewBox="0 0 1000 550"> 

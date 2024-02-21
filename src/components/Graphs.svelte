@@ -566,7 +566,7 @@
     </div>
     <div class="right-column">
         <h1>Player Scatter Plot</h1>
-        <svg bind:this={svgElement}></svg> <!-- Bind the SVG element -->
+        <!-- <svg bind:this={svgElement}></svg> Bind the SVG element -->
         <Scatter {player_data} selectedRegion={selectedRegion} selectedPatch={selectedPatch}/>
     </div>
 </div>
