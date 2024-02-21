@@ -473,7 +473,7 @@
         // Take the top 5 most banned champions
         sortedBannedChampions = bannedChampionsArray.slice(0, 5);
             xScaleBanned = d3.scaleLinear()
-                .domain([0, d3.max(bannedChampionsArray, d => d[1])])
+                .domain([10, d3.max(bannedChampionsArray, d => d[1])])
                 .range([0, 300]);
 
         yScaleBanned = d3.scaleBand()
@@ -483,7 +483,7 @@
 
         svgBanned = d3.select('#banned-champions-graph')
             .append('svg')
-            .attr('width', 500)
+            .attr('width', 800)
             .attr('height', 200);
 
         svgBanned.append("g")
@@ -494,7 +494,7 @@
 
         svgBanned.append("g")
             .attr("transform", "translate(100,120)")
-            .call(d3.axisBottom(xScaleBanned).ticks(5))
+            .call(d3.axisBottom(xScaleBanned).ticks(10))
             .selectAll("text")
             .attr("fill", "#F0E6D2");
 

@@ -18,7 +18,17 @@ h1 {
     font-optical-sizing: auto;
     font-style: normal;
     color: #F0E6D2;
+    margin: 0.25rem;
+    margin-top: 1rem;
 }
+
+h2 {
+    font-family: "Merriweather Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #F0E6D2;
+}
+
 
 .worldmap {
     width: 90%!important;

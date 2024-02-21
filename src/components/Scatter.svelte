@@ -202,7 +202,7 @@
         // Position tooltip relative to the mouse cursor
         const mouseX = d.screenX;
         const mouseY = d.screenY;
-        tooltip.attr('transform', `translate(${mouseX-1250},${mouseY-410})`);
+        tooltip.attr('transform', `translate(${xScale(roundedXValue)},${yScale(roundedYValue)})`);
     }
 
     function handleMouseOut() {
