@@ -16,7 +16,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base:'/LOL_visualization.github.io'
+			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
 		}
 	}
 };

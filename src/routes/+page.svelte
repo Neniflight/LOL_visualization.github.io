@@ -2,8 +2,6 @@
   import { json, select } from "d3";
   import { geoPath, geoNaturalEarth1 } from "d3";
   import { onMount } from 'svelte';
-  import { paths } from '$app/paths'; // Importing paths from $app/paths module
-
 
   let dataset = null;
   let path = null;
@@ -62,7 +60,7 @@
 <div class="container">
   <h1>Are Different Champions Popular in Different Regions?</h1>
   <h2>Competitive League of Legends Visualization</h2>
-  <a href={"{paths.base}/writeup"}>
+  <a href="/writeup">
     <button class="write-up">Write-Up</button>
   </a>
   {#if dataset}
@@ -126,8 +124,8 @@
   <div>
     <h2>Comparing Visualizations amongst Regions</h2>
     <div class="image-container">
-      <img alt="china" src="src\images\china.png">
-      <img alt="korea" src="src\images\korea.png">
+      <img alt="china" src="china.png">
+      <img alt="korea" src="korea.png">
     </div> 
     <p>Here I am comparing between China(left) and Korea(right) on their champion selections in the competitive scene for Patch 13.12. Both regions generally ban the same champions with Neeko, Lebranc, Tristana, and Vi. However, the winrate for champins are quite different between regions. Rumble seems to be the best champion in China, while Skarner is the best in Korea.</p>
   </div>
