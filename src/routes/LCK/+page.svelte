@@ -1,5 +1,5 @@
 <script>
-    import Graph from '../components/Graphs.svelte';
+    import Graph from '../../components/Graphs.svelte';
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
     
@@ -24,7 +24,7 @@
 <main>
     <section class="graph">
         <div>
-            <Graph {player_data} {team_data}/>
+            <Graph {player_data} {team_data} selectedRegion="LCK"/>
           </div>
     </section>
 </main>

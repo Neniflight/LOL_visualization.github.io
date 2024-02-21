@@ -7,11 +7,12 @@
   let dataset = null;
   let path = null;
   let projection = null;
+  //pins to mark where the regions are
   let pins = [
-    { name: "USA", region:"North America", coordinates: [-100, 43] },
-    { name: "France", region:"Europe", coordinates: [5, 53] },
-    { name: "China", region:"China", coordinates: [107, 30] },
-    { name: "South Korea", region:"South Korea", coordinates: [129, 40] },
+    { name: "USA", region:"North America", initials:"LCS", coordinates: [-100, 43] },
+    { name: "France", region:"Europe", initials:"LEC", coordinates: [5, 53] },
+    { name: "China", region:"China", initials:"LPL", coordinates: [107, 30] },
+    { name: "South Korea", region:"South Korea", initials:"LCK", coordinates: [129, 40] },
     // Add more pins as needed
   ];
 
@@ -61,6 +62,7 @@
 <div class="container">
   <h1>League of Legends Visualizations by Region</h1>
   {#if dataset}
+    <!-- World map drawn by paths -->
     <svg class="worldmap" viewBox="0 0 1000 550"> 
       {#each dataset.features as feature}
         <path
@@ -76,7 +78,9 @@
         />
       {/each}
       {#each pins as pin}
-        <line 
+      <!-- location of pins -->
+        <a href={"/" + pin.initials} class="router">
+          <line 
           x1={projection(pin.coordinates)[0]} 
           y1={projection(pin.coordinates)[1]+16} 
           x2={projection(pin.coordinates)[0]} 
@@ -109,11 +113,10 @@
         >
           {pin.region}
         </text>
+        </a>
       {/each}
     </svg>
   {:else}
     <p>Loading...</p>
   {/if}
 </div>
-
-<App />

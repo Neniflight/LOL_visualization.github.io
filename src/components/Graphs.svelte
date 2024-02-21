@@ -5,10 +5,10 @@
 
     export let player_data = []; // Define player_data as a prop
     export let team_data = []; // Define team_data as a prop
+    export let selectedRegion = 'LCK'
 
 
     let selectedPatch = 13.05; // Initial patch
-    let selectedRegion = 'LCK'; // Initial region
 
     let svg;
     let xScale;
@@ -70,7 +70,7 @@
         // Create scales
         xScale = d3.scaleLinear()
             .domain([0, 1]) // Adjusted to represent percentage
-            .range([0, 300]); // Adjust width as needed
+            .range([0, 300]) // Adjust width as needed
 
         yScale = d3.scaleBand()
             .domain(sortedChampions.map(d => d[0]))
@@ -81,17 +81,21 @@
         svg = d3.select('#graph')
             .append('svg')
             .attr('width', 500)
-            .attr('height', 200); // Adjust dimensions as needed
+            .attr('height', 200)  // Adjust dimensions as needed
 
         // Create y-axis
         svg.append("g")
             .attr("transform", "translate(100,0)") // Adjust x-position for the y-axis
-            .call(d3.axisLeft(yScale));
+            .call(d3.axisLeft(yScale))
+            .selectAll("text")
+            .attr("fill", "#F0E6D2")
 
         // Create x-axis
         svg.append("g")
             .attr("transform", "translate(100,120)") // Adjust y-position for the x-axis
-            .call(d3.axisBottom(xScale).ticks(5, "%")); // Display ticks in percentage form
+            .call(d3.axisBottom(xScale).ticks(5, "%"))
+            .selectAll("text")
+            .attr("fill", "#F0E6D2"); // Display ticks in percentage form
 
         // Add champion images
         svg.selectAll('.champion-image')
@@ -100,7 +104,7 @@
             .append('image')
             .attr("class", "champion-image")
             .attr("xlink:href", d => `${d[0]}Square.png`)
-            .attr("x", 35) // Adjust x-position to display images on the left side of the graph
+            .attr("x", 20) // Adjust x-position to display images on the left side of the graph
             .attr("y", d => yScale(d[0])) // Adjust y-position to center images with the corresponding y-axis label
             .attr("width", 20) // Adjust image size as needed
             .attr("height", 20); // Adjust image size as needed
@@ -130,7 +134,7 @@
             })            .attr('y', d => yScale(d[0]) + yScale.bandwidth() / 2)
             .attr('dy', '0.35em')
             .attr('dx', 5)
-            .attr('fill', 'black'); // Adjust color as needed
+            .attr('fill', '#F0E6D2'); // Adjust color as needed
 
 
             
@@ -348,12 +352,19 @@
         // Create y-axis
         svg2.append("g")
             .attr("transform", "translate(100,0)") // Adjust x-position for the y-axis
-            .call(d3.axisLeft(yScale2));
+            .call(d3.axisLeft(yScale2))
+            .selectAll("text")
+            .attr("fill", "#F0E6D2");
+
+        
 
         // Create x-axis
         svg2.append("g")
             .attr("transform", "translate(100,120)") // Adjust y-position for the x-axis
-            .call(d3.axisBottom(xScale2).ticks(5, "%")); // Display ticks in percentage format
+            .call(d3.axisBottom(xScale2).ticks(5, "%")) // Display ticks in percentage format
+            .selectAll("text")
+            .attr("fill", "#F0E6D2");
+
 
 
         // Add champion images
@@ -363,7 +374,7 @@
             .append('image')
             .attr("class", "champion-image")
             .attr("xlink:href", d => `${d[0]}Square.png`)
-            .attr("x", 35) // Adjust x-position to display images on the left side of the graph
+            .attr("x", 20) // Adjust x-position to display images on the left side of the graph
             .attr("y", d => yScale2(d[0])) // Adjust y-position to center images with the corresponding y-axis label
             .attr("width", 20) // Adjust image size as needed
             .attr("height", 20); // Adjust image size as needed
@@ -395,7 +406,7 @@
             })
             .attr('y', d => yScale2(d[0]) + yScale2.bandwidth() / 2)
             .attr('dy', '0.35em')
-            .attr('fill', 'black'); // Adjust color as needed
+            .attr('fill', '#F0E6D2'); // Adjust color as needed
     }
     function createBannedChampionsGraph(data) {
         // Filter data for the selected region
@@ -441,11 +452,15 @@
 
         svgBanned.append("g")
             .attr("transform", "translate(100,0)")
-            .call(d3.axisLeft(yScaleBanned));
+            .call(d3.axisLeft(yScaleBanned))
+            .selectAll("text")
+            .attr("fill", "#F0E6D2");
 
         svgBanned.append("g")
             .attr("transform", "translate(100,120)")
-            .call(d3.axisBottom(xScaleBanned).ticks(5));
+            .call(d3.axisBottom(xScaleBanned).ticks(5))
+            .selectAll("text")
+            .attr("fill", "#F0E6D2");
 
         svgBanned.selectAll('rect')
             .data(sortedBannedChampions)
@@ -466,7 +481,7 @@
             .attr('x', d => 100 + xScaleBanned(d[1]) + 5)
             .attr('y', d => yScaleBanned(d[0]) + yScaleBanned.bandwidth() / 2)
             .attr('dy', '0.35em')
-            .attr('fill', 'black');
+            .attr('fill', '#F0E6D2');
 
         console.log(sortedBannedChampions)
         svgBanned.selectAll('.champion-image')
@@ -475,7 +490,7 @@
             .append('image')
             .attr('class', 'champion-image')
             .attr('xlink:href', d => `${d[0]}Square.png`)
-            .attr('x', 35)
+            .attr('x', 20)
             .attr('y', d => yScaleBanned(d[0]))
             .attr('width', 20)
             .attr('height', 20);
@@ -483,24 +498,70 @@
 
 
 </script>
-<h1>Best Win Rate Champions Per Region Per Patch</h1>
-<div id="graph"></div>
-<h1>Worst Win Rate Champions Per Region Per Patch</h1>
-<div id="worst-graph"></div>
-<h1>Most Banned Champions Per Region Per Patch</h1>
-<div id="banned-champions-graph"></div>
-
+<div class="container">
+    <div class="button-container">
+        <a href="/">
+            <button>Back to Region</button>
+        </a>
+    </div>
+    <select bind:value={selectedPatch} on:change={updateGraph}>
+        {#each availablePatches as patch}
+            <option value={patch}>{patch.toFixed(2)}</option>
+        {/each}
+    </select>
+    <h1>Best Win Rate Champions Per Region Per Patch</h1>
+    <div id="graph"></div>
+    <h1>Worst Win Rate Champions Per Region Per Patch</h1>
+    <div id="worst-graph"></div>
+    <h1>Most Banned Champions Per Region Per Patch</h1>
+    <div id="banned-champions-graph"></div>
 <!-- Selector to choose patch -->
-<select bind:value={selectedPatch} on:change={updateGraph}>
-    {#each availablePatches as patch}
-        <option value={patch}>{patch.toFixed(2)}</option>
-    {/each}
-</select>
+</div>
 
-<!-- Control to select region -->
+<style>
+    .container {
+        background-color: linear-gradient(#091428, #0A1428);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 3rem;
+        width: 100vw;
+    }
+
+    select {
+        width: 5rem;
+        height: 3rem;
+    }
+
+    h1 {
+        color: #C89B3C;
+    }
+    
+    .button-container {
+        display: flex;
+        padding-top: 2rem;
+        align-items: left;
+        width: 100%;
+    }
+
+    button {
+        border-radius: 3px;
+        color: #F0E6D2;
+        background-color: #1E282D;
+        border-color: #C89B3C;
+        font-size: 1.5rem;
+    }
+
+    .domain {
+        color: #F0E6D2;
+    }
+</style>
+
+<!-- commented out to prevent people from choosing region -->
+<!-- Control to select region
 <select bind:value={selectedRegion} on:change={updateAvailablePatches}>
   <option value="LCK">LCK</option>
   <option value="LEC">LEC</option>
   <option value="LPL">LPL</option>
   <option value="LCS">LCS</option>
-</select>
+</select> -->
