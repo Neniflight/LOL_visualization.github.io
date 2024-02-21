@@ -27,6 +27,7 @@ h2 {
     font-optical-sizing: auto;
     font-style: normal;
     color: #F0E6D2;
+    text-align: center;
 }
 
 
@@ -53,4 +54,25 @@ h2 {
     background-color: #1E282D;
     border-color: #C89B3C;
     font-size: 1.5rem;
+}
+
+.image-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img {
+    width: 30%;
+    margin: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+p {
+    width: 90%;
+    max-width: 1200px;
+    color: #F0E6D2;
 }

@@ -121,4 +121,12 @@
   {:else}
     <p>Loading...</p>
   {/if}
+  <div>
+    <h2>Comparing Visualizations amongst Regions</h2>
+    <div class="image-container">
+      <img alt="china" src="src\images\china.png">
+      <img alt="korea" src="src\images\korea.png">
+    </div> 
+    <p>Here I am comparing between China(left) and Korea(right) on their champion selections in the competitive scene for Patch 13.12. Both regions generally ban the same champions with Neeko, Lebranc, Tristana, and Vi. However, the winrate for champins are quite different between regions. Rumble seems to be the best champion in China, while Skarner is the best in Korea.</p>
+  </div>
 </div>
