@@ -84,7 +84,7 @@
       {/each}
       {#each pins as pin}
       <!-- location of pins -->
-        <a href={"/" + pin.initials} class="router">
+        <a href={base + "/" + pin.initials} class="router">
           <line 
           x1={projection(pin.coordinates)[0]} 
           y1={projection(pin.coordinates)[1]+16} 
